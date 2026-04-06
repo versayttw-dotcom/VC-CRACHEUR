@@ -51,18 +51,15 @@ do
     local guiParent
     pcall(function() guiParent = gethui() end)
     if not guiParent then guiParent = game:GetService("CoreGui") end
-
     local function mk(cls, props)
         local o = Instance.new(cls)
         for k, v in pairs(props) do o[k] = v end
         return o
     end
-
     pcall(function()
         local old = guiParent:FindFirstChild("VCStatusGui")
         if old then old:Destroy() end
     end)
-
     local Screen = mk("ScreenGui", {
         Name = "VCStatusGui", ResetOnSpawn = false,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling, Parent = guiParent,
@@ -70,10 +67,11 @@ do
     local Main = mk("Frame", {
         Size = UDim2.fromOffset(340, 0), AutomaticSize = Enum.AutomaticSize.Y,
         Position = UDim2.new(1, -12, 1, -12), AnchorPoint = Vector2.new(1, 1),
-        BackgroundColor3 = Color3.fromRGB(16, 18, 21), BorderSizePixel = 0, Parent = Screen,
+        BackgroundColor3 = Color3.fromRGB(18, 8, 32), -- Violet foncé
+        BorderSizePixel = 0, Parent = Screen,
     })
     mk("UICorner", { CornerRadius = UDim.new(0, 5), Parent = Main })
-    mk("UIStroke", { Color = Color3.fromRGB(32, 36, 42), Transparency = 0.4, ApplyStrokeMode = Enum.ApplyStrokeMode.Border, Parent = Main })
+    mk("UIStroke", { Color = Color3.fromRGB(75, 35, 110), Transparency = 0.35, ApplyStrokeMode = Enum.ApplyStrokeMode.Border, Parent = Main })
 
     do
         local UIS = game:GetService("UserInputService")
@@ -102,17 +100,18 @@ do
     end
 
     local Topbar = mk("Frame", {
-        Size = UDim2.new(1, 0, 0, 35), BackgroundColor3 = Color3.fromRGB(22, 25, 29),
+        Size = UDim2.new(1, 0, 0, 35), 
+        BackgroundColor3 = Color3.fromRGB(30, 15, 50),
         BorderSizePixel = 0, ZIndex = 2, Parent = Main,
     })
     mk("UICorner", { CornerRadius = UDim.new(0, 5), Parent = Topbar })
     mk("Frame", {
         Size = UDim2.new(1, 0, 0, 5), Position = UDim2.new(0, 0, 1, -5),
-        BackgroundColor3 = Color3.fromRGB(22, 25, 29), BorderSizePixel = 0, ZIndex = 2, Parent = Topbar,
+        BackgroundColor3 = Color3.fromRGB(30, 15, 50), BorderSizePixel = 0, ZIndex = 2, Parent = Topbar,
     })
     mk("Frame", {
         Size = UDim2.new(1, 0, 0, 1), Position = UDim2.new(0, 0, 1, 0),
-        BackgroundColor3 = Color3.fromRGB(32, 36, 42), BackgroundTransparency = 0.4,
+        BackgroundColor3 = Color3.fromRGB(90, 50, 140), BackgroundTransparency = 0.4,
         BorderSizePixel = 0, ZIndex = 3, Parent = Topbar,
     })
     mk("TextLabel", {
@@ -138,11 +137,13 @@ do
     local TopStatus = mk("TextLabel", {
         Size = UDim2.new(0, 0, 0, 15), AutomaticSize = Enum.AutomaticSize.X,
         BackgroundTransparency = 1, Text = "Spamming...",
-        TextColor3 = Color3.fromRGB(220, 170, 55), TextSize = 12,
+        TextColor3 = Color3.fromRGB(190, 130, 255), 
+        TextSize = 12,
         Font = Enum.Font.Gotham, ZIndex = 2, LayoutOrder = 1, Parent = StatusContainer,
     })
     local TopDot = mk("Frame", {
-        Size = UDim2.fromOffset(8, 8), BackgroundColor3 = Color3.fromRGB(220, 170, 55),
+        Size = UDim2.fromOffset(8, 8), 
+        BackgroundColor3 = Color3.fromRGB(190, 130, 255), 
         BorderSizePixel = 0, ZIndex = 3, LayoutOrder = 2, Parent = StatusContainer,
     })
     mk("UICorner", { CornerRadius = UDim.new(1, 0), Parent = TopDot })
@@ -156,8 +157,8 @@ do
 
     local TS = game:GetService("TweenService")
     local TI = TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
-    local C_GREEN  = Color3.fromRGB(80, 220, 110)
-    local C_CREDIT = Color3.fromRGB(100, 105, 120)
+    local C_GREEN = Color3.fromRGB(80, 220, 110)
+    local C_CREDIT = Color3.fromRGB(170, 120, 230) 
 
     local NotifHolder = mk("Frame", {
         AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, 0, 0, 0),
@@ -168,15 +169,16 @@ do
     mk("UIListLayout", { SortOrder = Enum.SortOrder.LayoutOrder, HorizontalAlignment = Enum.HorizontalAlignment.Right, Padding = UDim.new(0, 8), Parent = NotifHolder })
 
     local function notify(title, desc, duration, icon, iconColor)
-        duration  = duration  or 4
-        icon      = icon      or "116339777575852"
+        duration = duration or 4
+        icon = icon or "116339777575852"
         iconColor = iconColor or Color3.fromRGB(52, 255, 164)
         local nf = mk("Frame", {
-            AutomaticSize = Enum.AutomaticSize.XY, BackgroundColor3 = Color3.fromRGB(16, 18, 21),
+            AutomaticSize = Enum.AutomaticSize.XY, 
+            BackgroundColor3 = Color3.fromRGB(18, 8, 32),
             BorderSizePixel = 0, Parent = NotifHolder,
         })
         mk("UICorner", { CornerRadius = UDim.new(0, 5), Parent = nf })
-        local nStroke = mk("UIStroke", { Color = Color3.fromRGB(32, 36, 42), Transparency = 0.4, ApplyStrokeMode = Enum.ApplyStrokeMode.Border, Parent = nf })
+        local nStroke = mk("UIStroke", { Color = Color3.fromRGB(75, 35, 110), Transparency = 0.35, ApplyStrokeMode = Enum.ApplyStrokeMode.Border, Parent = nf })
         mk("UIPadding", { PaddingLeft = UDim.new(0, 10), PaddingRight = UDim.new(0, 10), PaddingTop = UDim.new(0, 8), PaddingBottom = UDim.new(0, 8), Parent = nf })
         mk("UIListLayout", { FillDirection = Enum.FillDirection.Horizontal, VerticalAlignment = Enum.VerticalAlignment.Center, SortOrder = Enum.SortOrder.LayoutOrder, Padding = UDim.new(0, 8), Parent = nf })
         local iconLbl = mk("ImageLabel", {
@@ -207,7 +209,7 @@ do
             iconLbl.ImageTransparency = 1
             task.wait(0.05)
             TS:Create(nf, TI, { Size = UDim2.fromOffset(sz.X, sz.Y), BackgroundTransparency = 0 }):Play()
-            TS:Create(nStroke, TI, { Transparency = 0.4 }):Play()
+            TS:Create(nStroke, TI, { Transparency = 0.35 }):Play()
             task.wait(0.12)
             TS:Create(tLbl, TI, { TextTransparency = 0 }):Play()
             TS:Create(dLbl, TI, { TextTransparency = 0 }):Play()
@@ -226,10 +228,11 @@ do
 
     local DetailBox = mk("Frame", {
         Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y,
-        BackgroundColor3 = Color3.fromRGB(22, 25, 29), BorderSizePixel = 0, LayoutOrder = 2, Parent = Content,
+        BackgroundColor3 = Color3.fromRGB(30, 15, 50), -- Violet foncé
+        BorderSizePixel = 0, LayoutOrder = 2, Parent = Content,
     })
     mk("UICorner", { CornerRadius = UDim.new(0, 5), Parent = DetailBox })
-    mk("UIStroke", { Color = Color3.fromRGB(45, 45, 55), Transparency = 0.3, Parent = DetailBox })
+    mk("UIStroke", { Color = Color3.fromRGB(100, 55, 160), Transparency = 0.3, Parent = DetailBox })
     mk("UIPadding", {
         PaddingLeft = UDim.new(0, 8), PaddingRight = UDim.new(0, 8),
         PaddingTop = UDim.new(0, 8), PaddingBottom = UDim.new(0, 8), Parent = DetailBox,
@@ -242,7 +245,6 @@ do
         TextWrapped = true, TextXAlignment = Enum.TextXAlignment.Left,
         LayoutOrder = 1, Parent = DetailBox,
     })
-
     local TimerLabel = mk("TextLabel", {
         Size = UDim2.new(1, 0, 0, 20), BackgroundTransparency = 1,
         Text = "0:00", TextColor3 = Color3.fromRGB(255, 255, 255),
@@ -251,7 +253,7 @@ do
     })
     mk("TextLabel", {
         Size = UDim2.new(1, 0, 0, 14), BackgroundTransparency = 1,
-        Text = "For help, join :", TextColor3 = Color3.fromRGB(90, 95, 105), TextSize = 10,
+        Text = "BEST SERVEUR :", TextColor3 = Color3.fromRGB(90, 95, 105), TextSize = 10,
         Font = Enum.Font.GothamBold, TextXAlignment = Enum.TextXAlignment.Left, LayoutOrder = 3, Parent = Content,
     })
     local CreditBtn = mk("TextButton", {
@@ -261,11 +263,10 @@ do
         TextSize = 13, Font = Enum.Font.GothamBold, BorderSizePixel = 0,
         AutoButtonColor = false, LayoutOrder = 4, Parent = Content,
     })
-
     local creditClicking = false
     CreditBtn.MouseEnter:Connect(function()
         if not creditClicking then
-            TS:Create(CreditBtn, TI, { TextColor3 = Color3.fromRGB(220, 220, 230) }):Play()
+            TS:Create(CreditBtn, TI, { TextColor3 = Color3.fromRGB(210, 160, 255) }):Play()
         end
     end)
     CreditBtn.MouseLeave:Connect(function()
