@@ -257,7 +257,7 @@ do
     local CreditBtn = mk("TextButton", {
         Size = UDim2.new(0, 0, 0, 20), AutomaticSize = Enum.AutomaticSize.X,
         BackgroundTransparency = 1,
-        Text = "discord.gg/stalkie", TextColor3 = C_CREDIT,
+        Text = "discord.gg/PolakOnTop", TextColor3 = C_CREDIT,
         TextSize = 13, Font = Enum.Font.GothamBold, BorderSizePixel = 0,
         AutoButtonColor = false, LayoutOrder = 4, Parent = Content,
     })
