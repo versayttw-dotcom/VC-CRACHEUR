@@ -276,9 +276,9 @@ do
     CreditBtn.MouseButton1Click:Connect(function()
         if creditClicking then return end
         creditClicking = true
-        pcall(setclipboard, "discord.gg/stalkie")
+        pcall(setclipboard, "https://discord.gg/mHHDhKT88D")
         TS:Create(CreditBtn, TI, { TextColor3 = C_GREEN }):Play()
-        notify("Invite Copied", "discord.gg/stalkie", nil, "116339777575852", Color3.fromRGB(52, 255, 164))
+        notify("Invite Copied", "discord.gg/PolakOnTop", nil, "116339777575852", Color3.fromRGB(52, 255, 164))
         task.delay(0.5, function()
             TS:Create(CreditBtn, TI, { TextColor3 = C_CREDIT }):Play()
             creditClicking = false
